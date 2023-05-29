@@ -14,13 +14,15 @@ const colorList = <Color>[
 
 class AppTheme {
   final int selectedColor;
+  final bool isDarkMode;
 
-  AppTheme({this.selectedColor = 0})
+  AppTheme({this.selectedColor = 0, this.isDarkMode = false, })
   : assert(selectedColor >= 0, 'Selected color mus be greater thna 0'),
     assert(selectedColor < colorList.length, 'Selected color mus be greater thna 0');
 
   ThemeData getTheme() => ThemeData(
     useMaterial3: true,
+    brightness: isDarkMode ? Brightness.dark : Brightness.light,
     colorSchemeSeed: colorList[selectedColor],
     appBarTheme: const AppBarTheme(
       centerTitle: false
@@ -30,6 +32,14 @@ class AppTheme {
     //   titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic, color: colorList[5]),
     //   bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     // )
+  );
+
+  AppTheme copyWith(
+    int? selectedColor,
+    bool? isDarkMode,
+  ) => AppTheme(
+    selectedColor: selectedColor ?? this.selectedColor,
+    isDarkMode: isDarkMode ?? this.isDarkMode
   );
 
   
